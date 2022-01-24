@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html"; charset="utf-8" />
+        <title>Sort Viz 03</title>
+        <!-- <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script> -->
+        <script src="https://d3js.org/d3.v7.min.js"></script>
+        <script src="draw_functions.js"></script>
+        <script src="quickSort.js"></script>
+        <script src="mergeSort.js"></script>
+        <script src="insertSort.js"></script>
+        <script src="bucketSort.js"></script>
+        
+
+        <style>
+            body {
+                font-family: "Helvetica Neue", Helvetica, sans-serif;
+                font-size: 20px;
+                color: #333;
+            }
+            /* rect {
+	            fill: orange;
+            } */
+            #counter{
+                width: 100px;
+                height:100px;
+                color: black;
+                font: 500 60px system-ui;
+            }
+            div {
+                font: 1000 20px system-ui;
+            }
+        </style>
+    </head>
+
+    <body>
+        <!-- https://stackoverflow.com/questions/67762588/how-to-pause-and-resume-function-execution-in-javascript/67764707#67764707 -->
+
+
+        <button onclick="start()">start</button>
+        <button onclick="stop()">pause</button>
+        <button onclick="nextStep()">one step forward</button>
+
+        <table>
+            <tr>
+                <td>
+                    <h1 id="title0">Quick Sort</h1>
+                    <div id="counter0">0</div>
+                    <div id="chart0"></div>            
+                </td>
+            </tr><tr>
+                <td>
+                    <h1 id="title1">Merge Sort</h1>
+                    <div id="counter1">0</div>
+                    <div id="chart1"></div>            
+                </td>
+            </tr><tr>
+                <td>
+                    <h1 id="title2">Insertion Sort</h1>
+                    <div id="counter2">0</div>
+                    <div id="chart2"></div>            
+                </td>
+            </tr><tr>
+                <td>
+                    <h1 id="title3">Bucket Sort</h1>
+                    <div id="counter3">0</div>
+                    <div id="chart3"></div>            
+                </td>
+            </tr>
+        </table>
+
+        <script>
+
+            var num = 4;
+
+            var steps = [];
+            var counter = [];
+            
+            for (i = 0; i < num; i++) {
+                steps[i] = [];
+                counter[i] = 0;
+            }
+
+
+
+            var myData = d3.range(1, data_size + 1);
+            d3.shuffle(myData);
+            // for (i = 0; i < myData.length; i++) {
+            //     myData[i] = Math.floor(Math.random() * myData.length);
+            // }
+
+            var tmpData0 = myData.map(d => d);            
+            var tmpData1 = myData.map(d => d);            
+            var tmpData2 = myData.map(d => d);            
+            var tmpData3 = myData.map(d => d);            
+
+            const id = "chart";
+
+            num = 0;
+            quickSort(tmpData0, 0, myData.length, num++);
+            mergeSort(tmpData1, 0, myData.length, num++);
+            insertSort(tmpData2, num++);
+            bucketSort(tmpData3, num++);
+
+            console.log(steps);
+            console.log(counter);
+            console.log(Math.max(...counter));
+            
+
+            num = 0;
+            initDraw(steps[num][0].data, id, num++) 
+            initDraw(steps[num][0].data, id, num++) 
+            initDraw(steps[num][0].data, id, num++) 
+            initDraw(steps[num][0].data, id, num++) 
+
+
+            function* stoppableMethod() {
+                let i = 0;
+
+                // while (i < steps[0].length) {
+                while (i < Math.max(...counter)) {
+                    yield i;
+                    i += 1;
+                }
+
+                stop();
+            }
+
+
+            const generatorInstance = stoppableMethod();
+
+
+            const nextStep = () => {
+                const { value } = generatorInstance.next();
+
+                if (typeof(value) !== 'undefined') {
+                    if (counter[0] > value) {
+                        document.getElementById("counter0").innerHTML = value;
+
+                        redraw(steps[0][value].data, id, 0, steps[0][value].left, steps[0][value].right, steps[0][value].flag);
+                    }
+
+                    if (counter[1] > value) {
+                        document.getElementById("counter1").innerHTML = value;
+
+                        redraw(steps[1][value].data, id, 1, steps[1][value].left, steps[1][value].right, steps[1][value].flag);
+                    }
+
+                    if (counter[2] > value) {
+                        document.getElementById("counter2").innerHTML = value;
+
+                        redraw(steps[2][value].data, id, 2, steps[2][value].left, steps[2][value].right, steps[2][value].flag);
+                    }
+
+                    if (counter[3] > value) {
+                        document.getElementById("counter3").innerHTML = value;
+
+                        redraw(steps[3][value].data, id, 3, steps[3][value].left, steps[3][value].right, steps[3][value].flag);
+                    }
+                }
+            }
+
+
+            const state = {
+                timeoutId: 0,
+            }
+
+
+            const start = () => {
+                if (state.timeoutId === 0) {
+                    state.timeoutId = setInterval(() => nextStep(), durationTime * 1.5);
+                }
+            }
+
+
+            const stop = () => { 
+                clearTimeout(state.timeoutId);
+                state.timeoutId = 0;
+            }
+
+
+            const stepForward = () => nextStep();
+
+        </script>
+
+    </body>
+</html>
