@@ -1,3 +1,7 @@
+// Porting from: (by Renpoo)
+// https://github.com/drken1215/book_algorithm_solution/
+
+
 function insertSort(items, num) {
 
     var v = -999;

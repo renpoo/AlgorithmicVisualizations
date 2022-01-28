@@ -1,3 +1,7 @@
+// Porting from: (by Renpoo)
+// https://github.com/drken1215/book_algorithm_solution/
+
+
 const MAX = 10 + data_size;
 
 function bucketSort(items, num) {

@@ -1,3 +1,7 @@
+// Porting from: (by Renpoo)
+// https://github.com/drken1215/book_algorithm_solution/
+
+
 function quickSort(items, left, right, num) {
 
     if (right - left <= 1) return;
