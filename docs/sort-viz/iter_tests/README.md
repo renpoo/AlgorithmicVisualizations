@@ -1,4 +1,4 @@
-# AlgorithmicVisualizations
+# Algorithmic Visualizations (Sort)
 ## C++ コード（by drken）を改造して、実際の実行時間を計測した
 
 # 概要
@@ -13,17 +13,20 @@
 
 # 考察 —— 最速ソート・アルゴリズム（オレンジ色でマーク）の説明 ——
 
-今回の計算機実験では、最速なソートは、前提条件によって異なる、との結論。
+<img src="[Table] Relative Scale for Sorting time.png" width=500mm>
 
+今回の計算機実験では、最速なソートは、前提条件によって異なる、との結論。
 
 + 挿入ソート
 + マージ・ソート
 + クイック・ソート
 + ヒープ・ソート
 + バケツ・ソート
+
 上記 5 種を比較。
 
 入力データの条件は（データ数 n の非負整数）
+
 + ランダム
 + シャッフル（ゼロから n までの単調増加数列を）
 
@@ -34,8 +37,6 @@
 オレンジ色の『最速』は同じ n のカテゴリー（たとえば n = 100 回）について、最速タイムに対する計測タイムの比の平均値で、一番小さいものを選んだ。
 
 結論として、クイック・ソートはほぼ安定して速いように見えるが、前提条件によっては、ほかのソートのほうが有力であることが分かる。
-
-<img src="[Table] Relative Scale for Sorting time.png" width=500mm>
 
 <img src="[Graph] Relative Scale for Sorting time.png" width=500mm>
 
