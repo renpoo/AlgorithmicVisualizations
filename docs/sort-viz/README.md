@@ -1,5 +1,5 @@
 # Algorithmic Visualizations (Sort)
-## C++ コード（by drken）を改造して、実際の実行時間を計測した
+## C++ コード（by drken）を参考に、各種ソートを体感的に比較できないか試みた
 
 # 概要
 
