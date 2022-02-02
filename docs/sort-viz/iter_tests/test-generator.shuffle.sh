@@ -25,11 +25,12 @@ do
     N=$maxval
 
     rm test_shuffle.$N.txt
+    rm test_shuffle.tmp
 
     echo $N > test_shuffle.$N.txt
     array=`seq 1 $N`
     for item in "${array[@]}"; do echo "$item" >> test_shuffle.tmp; done
-    sort -R test_shuffle.tmp >> test_shuffle.$N.txt
+    gshuf test_shuffle.tmp >> test_shuffle.$N.txt
 
     for tcmd in "${test_commands[@]}"
     do

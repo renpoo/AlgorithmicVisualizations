@@ -25,6 +25,7 @@ do
     N=$maxval
 
     rm test_random.$N.txt
+    rm test_random.tmp
 
     echo $N > test_random.$N.txt
     for i in $(seq $N)
